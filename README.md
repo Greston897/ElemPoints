@@ -45,7 +45,7 @@
 
 ## 📥 Installation
 
-1. Download `ElemPoints-2.0.0.jar` from [Releases](https://github.com/Greston897/ElemPoints/releases)
+1. Download `ElemPoints-1.0.jar` from [Releases](https://github.com/Greston897/ElemPoints/releases)
 2. Place it in your server's `plugins/` folder
 3. Start/restart the server
 4. Configure in `plugins/ElemPoints/`
