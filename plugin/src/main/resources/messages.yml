@@ -1,0 +1,74 @@
+# ElemPoints Global Messages
+
+# These are fallback messages. Each currency .yml can override them.
+#
+# Placeholders:
+#   %player%          - player name
+#   %currency%        - currency display name
+#   %symbol%          - currency symbol
+#   %balance%         - plain number (1337.5)
+#   %balance_fmt%     - formatted number (1,337.50)
+#   %balance_short%   - shorthand (1.3k)
+#   %amount%          - plain amount
+#   %amount_fmt%      - formatted amount
+#   %amount_short%    - shorthand amount
+#   %fee%             - fee amount
+#   %fee_fmt%         - formatted fee
+#   %command%         - base command name
+#   %admin_command%   - admin command name
+#   %old_balance%     - balance before change
+#   %new_balance%     - balance after change
+
+prefix: "&8[&6ElemPoints&8] "
+
+balance:
+  self: "%prefix%&7Your %currency%&7: &a%symbol%%balance_fmt%"
+  other: "%prefix%&7%player%'s %currency%&7: &a%symbol%%balance_fmt%"
+
+admin:
+  give:
+    sender: "%prefix%&aGave &e%symbol%%amount_fmt% %currency% &ato &e%player%&a."
+    receiver: "%prefix%&aYou received &e%symbol%%amount_fmt% %currency%&a."
+  take:
+    sender: "%prefix%&cTook &e%symbol%%amount_fmt% %currency% &cfrom &e%player%&c."
+    receiver: "%prefix%&cLost &e%symbol%%amount_fmt% %currency%&c."
+  set:
+    sender: "%prefix%&aSet &e%player%&a's %currency% to &e%symbol%%amount_fmt%&a."
+    receiver: "%prefix%&aYour %currency% set to &e%symbol%%amount_fmt%&a."
+  reset:
+    sender: "%prefix%&aReset &e%player%&a's %currency% to default."
+
+transfer:
+  sent: "%prefix%&aSent &e%symbol%%amount_fmt% %currency% &ato &e%player%&a."
+  received: "%prefix%&aReceived &e%symbol%%amount_fmt% %currency% &afrom &e%player%&a."
+  fee: "&7  Transfer fee: &e%symbol%%fee_fmt%"
+  disabled: "%prefix%&cTransfers are disabled for %currency%."
+  minimum: "%prefix%&cMinimum transfer: &e%symbol%%amount_fmt%"
+
+error:
+  no-permission: "%prefix%&cYou don't have permission to do this."
+  player-not-found: "%prefix%&cPlayer &e%player% &cnot found."
+  invalid-amount: "%prefix%&cInvalid amount: &e%input%"
+  not-enough: "%prefix%&cInsufficient %currency%! Have: &e%symbol%%balance_fmt%&c, Need: &e%symbol%%amount_fmt%"
+  max-balance: "%prefix%&cMaximum balance reached for %currency%!"
+  self-transfer: "%prefix%&cYou cannot transfer to yourself."
+  currency-not-found: "%prefix%&cCurrency '&e%input%&c' not found."
+
+system:
+  reload: "%prefix%&aConfiguration reloaded! &7(%count% currencies loaded)"
+  export-start: "%prefix%&eExporting &6%from% &e→ &6%to% &e(rate: &6%rate%&e)..."
+  export-done: "%prefix%&aExport complete! &e%count% &aaccounts converted."
+  export-fail: "%prefix%&cExport failed: &e%error%"
+
+help:
+  header: "&6&m─────────&r &6%currency% Help &6&m─────────"
+  balance: "&e/%command% &7— Check your balance"
+  balance-other: "&e/%command% <player> &7— Check someone's balance"
+  pay: "&e/%command% pay <player> <amount> &7— Transfer"
+  admin-header: "&c&m─────────&r &c%currency% Admin &c&m─────────"
+  admin-give: "&e/%admin_command% give <player> <amount>"
+  admin-take: "&e/%admin_command% take <player> <amount>"
+  admin-set: "&e/%admin_command% set <player> <amount>"
+  admin-reset: "&e/%admin_command% reset <player>"
+  admin-export: "&e/%admin_command% export <target_currency> <rate>"
+  admin-reload: "&e/elempoints reload"

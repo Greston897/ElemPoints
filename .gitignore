@@ -1,0 +1,12 @@
+# .gitignore
+target/
+*.class
+*.jar
+*.log
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+dependency-reduced-pom.xml
