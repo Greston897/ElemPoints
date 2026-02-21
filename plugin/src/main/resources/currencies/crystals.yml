@@ -1,0 +1,45 @@
+# Currency: Crystals
+
+id: "crystals"
+
+display:
+  name: "&bCrystals"
+  singular: "crystal"
+  plural: "crystals"
+  symbol: "💎"
+
+economy:
+  default-balance: 0.0
+  primary: false
+  max-balance: 1000000
+  min-balance: 0
+
+transfer:
+  enabled: true
+  fee-percent: 5.0
+  minimum: 10.0
+
+commands:
+  player:
+    name: "crystals"
+    aliases:
+      - "cr"
+      - "crystal"
+    permission: "elempoints.currency.crystals.use"
+  admin:
+    name: "crystalsadmin"
+    aliases:
+      - "cra"
+    permission: "elempoints.currency.crystals.admin"
+
+# Separate database for crystals
+database:
+  type: SQLITE
+  sqlite:
+    file: "storage/crystals.db"
+
+# Override some messages for this currency
+messages:
+  balance:
+    self: "&8[&b💎&8] &7Your crystals: &b%balance_fmt%"
+    other: "&8[&b💎&8] &7%player%'s crystals: &b%balance_fmt%"

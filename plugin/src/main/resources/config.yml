@@ -1,0 +1,52 @@
+# ElemPoints v1.0
+# Multi-Currency Economy System
+
+# ─── General Settings ───
+general:
+  # Number format locale (en_US, ru_RU, de_DE, etc.)
+  locale: "en_US"
+  # Debug mode — prints extra info to console
+  debug: false
+  # Auto-save interval in minutes (0 = disable auto-save)
+  auto-save-interval: 5
+
+# ─── Default Database ──
+# Used by all currencies unless overridden in their own .yml
+database:
+  # SQLITE or MYSQL
+  type: SQLITE
+
+  sqlite:
+    # Path relative to plugin folder
+    file: "storage/global.db"
+
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "elempoints"
+    username: "root"
+    password: ""
+    table-prefix: "ep_"
+    pool:
+      max-size: 10
+      min-idle: 2
+      max-lifetime: 1800000
+      timeout: 5000
+    properties:
+      useSSL: "false"
+      characterEncoding: "utf8mb4"
+      useUnicode: "true"
+      autoReconnect: "true"
+
+# ─── Currency Files ──
+# Each .yml file in the /currencies/ folder defines one currency.
+# List enabled currencies here. Order matters — first one with
+# primary: true becomes the Vault currency.
+#
+# To disable a currency, simply remove or comment out its ID.
+# The .yml file will stay in place for re-enabling later.
+currencies:
+  enabled:
+    - "points"
+    - "crystals"
+    # - "tokens"    # uncommented = disabled

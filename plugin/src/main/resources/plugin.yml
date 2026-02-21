@@ -1,0 +1,18 @@
+name: ElemPoints
+version: ${project.version}
+main: jar.elem.elempoints.plugin.ElemPointsPlugin
+api-version: "1.16"
+description: Production-grade multi-currency economy system
+authors: [Greston]
+website: https://github.com/Greston897/ElemPoints
+softdepend:
+  - Vault
+  - PlaceholderAPI
+
+permissions:
+  elempoints.admin:
+    description: Full admin access
+    default: op
+  elempoints.reload:
+    description: Reload configuration
+    default: op

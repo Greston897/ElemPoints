@@ -1,0 +1,70 @@
+# Currency: Donate Points
+
+# Unique ID — must match the filename (without .yml)
+id: "points"
+
+# Display settings
+display:
+  name: "&6Donate Points"
+  singular: "point"
+  plural: "points"
+  symbol: "⭐"
+
+# Economy settings
+economy:
+  default-balance: 0.0
+  # Set to true to make this the Vault currency
+  primary: true
+  # Max balance (0 = unlimited)
+  max-balance: 0
+  # Min balance floor
+  min-balance: 0
+
+# Transfer settings
+transfer:
+  enabled: true
+  # Fee as percentage (5 = 5%)
+  fee-percent: 0.0
+  # Minimum amount to transfer
+  minimum: 1.0
+
+# Commands for this currency
+commands:
+  player:
+    name: "points"
+    aliases:
+      - "pts"
+      - "donatepoints"
+      - "dp"
+    permission: "elempoints.currency.points.use"
+  admin:
+    name: "pointsadmin"
+    aliases:
+      - "ptsa"
+      - "padmin"
+    permission: "elempoints.currency.points.admin"
+
+# Per-currency database override (optional)
+# If omitted, uses the global database from config.yml
+# database:
+#   type: MYSQL
+#   mysql:
+#     host: "10.0.0.5"
+#     port: 3306
+#     database: "points_db"
+#     username: "points_user"
+#     password: "secret"
+#     table-prefix: "pts_"
+#     pool:
+#       max-size: 5
+#       min-idle: 1
+#       max-lifetime: 1800000
+#       timeout: 5000
+#     properties:
+#       useSSL: "false"
+
+# Per-currency message overrides (optional)
+# Any key defined here overrides the global messages.yml
+# messages:
+#   balance:
+#     self: "&8[&6⭐&8] &7Balance: &a%balance_fmt%"
