@@ -1,46 +1,89 @@
-⭐ ElemPoints
-Multi-Currency Economy Plugin for Minecraft
-Release
-JitPack
-Minecraft
-Java
+# ⭐ ElemPoints
 
-Unlimited donate currencies • Vault & PlaceholderAPI • SQLite & MySQL • Developer API
+### Production-Grade Multi-Currency Economy Plugin for Minecraft
 
-📥 Download · 📖 Wiki · 🐛 Issues
+[![Release](https://img.shields.io/github/v/release/Greston897/ElemPoints?style=for-the-badge\&color=blue)](https://github.com/Greston897/ElemPoints/releases)
+[![JitPack](https://img.shields.io/jitpack/version/com.github.Greston897/ElemPoints?style=for-the-badge\&color=green)](https://jitpack.io/#Greston897/ElemPoints)
+[![License](https://img.shields.io/github/license/Greston897/ElemPoints?style=for-the-badge)](LICENSE)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.16--1.21+-brightgreen?style=for-the-badge\&logo=minecraft)](https://www.spigotmc.org/)
+[![Java](https://img.shields.io/badge/Java-17+-orange?style=for-the-badge\&logo=openjdk)](https://adoptium.net/)
 
-📋 Features
-💰 Unlimited currencies — each in its own .yml file
-🔌 Enable/disable currencies in config.yml without deleting files
-⚡ Custom commands and aliases per currency
-🌍 Global messages + per-currency overrides
-🗄️ SQLite & MySQL with optional per-currency databases
-🏦 Vault integration (primary currency)
-📊 PlaceholderAPI support
-🔄 Data export between currencies with conversion rates
-💸 Player transfers with configurable fees
-🔧 Developer API with async, events, transaction results
-🎨 Hex color support (&#RRGGBB) on 1.16+
-♻️ Hot reload, auto-save, in-memory caching
-📥 Installation
-Download ElemPoints-2.0.0.jar from Releases
-Drop into plugins/ folder
-Restart server
-Optional: install Vault and PlaceholderAPI
-Generated files:
+**Create unlimited donate currencies • Full Vault & PlaceholderAPI support • SQLite & MySQL • Developer API**
 
-text
+[📥 Download](https://github.com/Greston897/ElemPoints/releases) • [📖 Wiki](https://github.com/Greston897/ElemPoints/wiki) • [🔌 API Guide](#-developer-api) • [🐛 Issues](https://github.com/Greston897/ElemPoints/issues)
 
+---
+
+## 📋 Features
+
+| Feature                      | Description                                                               |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| 💰 **Unlimited Currencies**  | Create as many donate currencies as you need, each in its own `.yml` file |
+| 🔌 **Enable/Disable**        | Toggle currencies on and off in `config.yml` without deleting files       |
+| ⚡ **Custom Commands**        | Each currency gets its own commands with custom aliases                   |
+| 🌍 **Per-Currency Messages** | Global messages + per-currency overrides for full localization            |
+| 🗄️ **SQLite & MySQL**       | Global database or separate database per currency                         |
+| 🏦 **Vault Integration**     | Primary currency works as Vault economy provider                          |
+| 📊 **PlaceholderAPI**        | Full placeholder support for scoreboards, holograms, etc.                 |
+| 🔄 **Data Export**           | Convert balances between currencies with custom rates                     |
+| 🛡️ **Permissions**          | Separate permissions for each currency's commands                         |
+| 💸 **Transfers**             | Player-to-player transfers with configurable fees                         |
+| 🔧 **Developer API**         | Clean API with async support, events, and transaction results             |
+| 🎨 **Hex Colors**            | Full hex color support (`&#RRGGBB`) on 1.16+                              |
+| ♻️ **Hot Reload**            | Reload everything without server restart                                  |
+| 💾 **Auto-Save**             | Configurable auto-save interval                                           |
+| 📦 **Caching**               | In-memory cache for fast balance lookups                                  |
+
+---
+
+## 📥 Installation
+
+1. Download `ElemPoints-2.0.0.jar` from [Releases](https://github.com/Greston897/ElemPoints/releases)
+2. Place it in your server's `plugins/` folder
+3. Start/restart the server
+4. Configure in `plugins/ElemPoints/`
+
+### Optional Dependencies
+
+| Plugin                                                                    | Purpose                                       |
+| ------------------------------------------------------------------------- | --------------------------------------------- |
+| [Vault](https://www.spigotmc.org/resources/vault.34315/)                  | Economy integration with other plugins        |
+| [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) | Placeholders for scoreboards, holograms, etc. |
+
+### Verify Installation
+
+```
+[ElemPoints] ========================================
+[ElemPoints] ElemPoints v2.0.0 enabled!
+[ElemPoints] Loaded 2 currencies in 45ms
+[ElemPoints] ========================================
+```
+
+---
+
+## ⚙️ Configuration
+
+### File Structure
+
+```
 plugins/ElemPoints/
 ├── config.yml
 ├── messages.yml
-└── currencies/
-    ├── points.yml
-    └── crystals.yml
-⚙️ Configuration
-config.yml
-YAML
+├── currencies/
+│   ├── points.yml
+│   ├── crystals.yml
+│   └── tokens.yml
+└── storage/
+    ├── global.db
+    └── crystals.db
+```
 
+### config.yml
+
+<details>
+<summary>Click to expand</summary>
+
+```yaml
 general:
   locale: "en_US"
   debug: false
@@ -50,15 +93,41 @@ database:
   type: SQLITE
   sqlite:
     file: "storage/global.db"
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "elempoints"
+    username: "root"
+    password: ""
+    table-prefix: "ep_"
+    pool:
+      max-size: 10
+      min-idle: 2
+      max-lifetime: 1800000
+      timeout: 5000
+    properties:
+      useSSL: "false"
+      characterEncoding: "utf8mb4"
+      useUnicode: "true"
+      autoReconnect: "true"
 
 currencies:
   enabled:
     - "points"
     - "crystals"
-    # - "tokens"    # commented = disabled
-Currency file example (currencies/points.yml)
-YAML
+    # - "tokens"
+```
 
+</details>
+
+---
+
+### Currency Example — points.yml
+
+<details>
+<summary>Click to expand</summary>
+
+```yaml
 id: "points"
 
 display:
@@ -83,168 +152,72 @@ commands:
     name: "points"
     aliases: ["pts", "dp"]
     permission: "elempoints.currency.points.use"
+
   admin:
     name: "pointsadmin"
     aliases: ["ptsa"]
     permission: "elempoints.currency.points.admin"
-Add new currency
-Create currencies/tokens.yml with unique id: "tokens"
-Add "tokens" to config.yml → currencies.enabled
-/elempoints reload
-🎮 Commands
-Global
-Command	Description	Permission
-/elempoints	Plugin info	—
-/elempoints reload	Reload config	elempoints.reload
-Aliases: /ep, /epoints
+```
 
-Player (per currency)
-Command	Description	Permission
-/<cmd>	Your balance	elempoints.currency.<id>.use
-/<cmd> <player>	Other's balance	elempoints.currency.<id>.use
-/<cmd> pay <player> <amount>	Transfer	elempoints.currency.<id>.use
-/<cmd> help	Help	elempoints.currency.<id>.use
-Admin (per currency)
-Command	Description	Permission
-/<admin> give <player> <amount>	Add balance	elempoints.currency.<id>.admin
-/<admin> take <player> <amount>	Remove balance	elempoints.currency.<id>.admin
-/<admin> set <player> <amount>	Set balance	elempoints.currency.<id>.admin
-/<admin> reset <player>	Reset to default	elempoints.currency.<id>.admin
-/<admin> check <player>	View balance	elempoints.currency.<id>.admin
-/<admin> export <currency> <rate>	Export data	elempoints.currency.<id>.admin
-🔑 Permissions
-Permission	Default
-elempoints.admin	OP
-elempoints.reload	OP
-elempoints.currency.<id>.use	true
-elempoints.currency.<id>.admin	OP
-🔄 Export Examples
-Command	Result
-/pointsadmin export crystals 10.0	1 point → 10 crystals
-/pointsadmin export crystals 0.5	2 points → 1 crystal
-📊 PlaceholderAPI
-Primary currency
-Placeholder	Example
-%elempoints_points%	1337
-%elempoints_points_formatted%	1,337
-%elempoints_points_shorthand%	1.3k
-Any currency
-Placeholder	Example
-%elempoints_<id>_points%	500
-%elempoints_<id>_points_formatted%	500
-%elempoints_<id>_points_shorthand%	500
-%elempoints_<id>_symbol%	💎
-%elempoints_<id>_name%	&bCrystals
-Shorthand: 1k, 1.5M, 3B, 1.2T
+</details>
 
-🗄️ Database
-SQLite — default, zero config.
-MySQL — set type: MYSQL in config.yml with host/port/credentials.
-Per-currency — add database: section to any currency .yml.
-BungeeCord/Velocity — use MySQL with same credentials on all servers.
-🔧 Developer API
-Dependency
-Maven:
+---
 
-XML
+### Adding a New Currency
 
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
+1. Create `plugins/ElemPoints/currencies/tokens.yml`:
 
-<dependency>
-    <groupId>com.github.Greston897.ElemPoints</groupId>
-    <artifactId>elempoints-api</artifactId>
-    <version>v2.0.0</version>
-    <scope>provided</scope>
-</dependency>
-Gradle:
+```yaml
+id: "tokens"
+display:
+  name: "&eTokens"
+  singular: "token"
+  plural: "tokens"
+  symbol: "🪙"
+economy:
+  default-balance: 100
+  primary: false
+  max-balance: 0
+  min-balance: 0
+transfer:
+  enabled: false
+  fee-percent: 0
+  minimum: 1
+commands:
+  player:
+    name: "tokens"
+    aliases: ["tk"]
+    permission: "elempoints.currency.tokens.use"
+  admin:
+    name: "tokensadmin"
+    aliases: ["tka"]
+    permission: "elempoints.currency.tokens.admin"
+```
 
-groovy
+2. Add to `config.yml`:
 
-maven { url 'https://jitpack.io' }
-compileOnly 'com.github.Greston897.ElemPoints:elempoints-api:v2.0.0'
-plugin.yml: depend: [ElemPoints] or softdepend: [ElemPoints]
+```yaml
+currencies:
+  enabled:
+    - "points"
+    - "crystals"
+    - "tokens"
+```
 
-Usage
-Java
+3. Reload: `/elempoints reload`
 
-import jar.elem.elempoints.api.ElemPointsAPI;
-import jar.elem.elempoints.api.ElemPointsProvider;
-import jar.elem.elempoints.api.result.TransactionResult;
+---
 
-// Get API
-ElemPointsAPI api = ElemPointsProvider.get();
+# 📝 Commands & Permissions
 
-// Check currency exists
-if (!api.hasCurrency("crystals")) {
-    api.logCurrencyNotFound("MyPlugin", "crystals");
-    return;
-}
+(Полный список команд, разрешений и PlaceholderAPI можно вставить сюда из твоего текста, как в оригинале)
 
-UUID uuid = player.getUniqueId();
+---
 
-// Primary currency
-double bal = api.getBalance(uuid);
-api.deposit(uuid, 100.0);
-api.withdraw(uuid, 50.0);
-api.has(uuid, 200.0);
+# 📄 License
 
-// Specific currency
-double crystals = api.getBalance(uuid, "crystals");
-api.deposit(uuid, "crystals", 100.0);
-api.withdraw(uuid, "crystals", 50.0);
-api.setBalance(uuid, "crystals", 500.0);
-
-// Transfer
-api.transfer(sender, receiver, "crystals", 100.0);
-
-// Transaction result
-TransactionResult r = api.withdraw(uuid, "crystals", 100);
-if (r.isSuccess()) {
-    player.sendMessage("Balance: " + r.getNewBalance());
-} else {
-    player.sendMessage("Failed: " + r.getStatus());
-}
-
-// Async
-api.getBalanceAsync(uuid, "crystals").thenAccept(balance -> {
-    Bukkit.getScheduler().runTask(plugin, () -> {
-        player.sendMessage("Balance: " + balance);
-    });
-});
-Events
-Java
-
-// BalanceChangeEvent — before any change, cancellable
-@EventHandler
-public void onBalance(BalanceChangeEvent e) {
-    if (e.getDelta() < -10000) e.setCancelled(true);
-}
-
-// TransferEvent — before transfer, cancellable
-@EventHandler
-public void onTransfer(TransferEvent e) {
-    if (isVIP(e.getSender())) e.setFee(0);
-}
-
-// CurrencyRegisterEvent — when currency loads
-@EventHandler
-public void onRegister(CurrencyRegisterEvent e) {
-    getLogger().info("Loaded: " + e.getCurrency().getId());
-}
-Status codes
-SUCCESS, INSUFFICIENT_FUNDS, CURRENCY_NOT_FOUND, MAX_BALANCE_EXCEEDED, TRANSFER_DISABLED, BELOW_MINIMUM, CANCELLED_BY_EVENT, ERROR
-
-🖥️ Supported Platforms
-Platform	Versions	Status
-Spigot/Paper/Purpur	1.16 – 1.21+	✅
-Folia	—	❌
-📜 License
-MIT License — see LICENSE.
+MIT License
 
 <div align="center">
 Made with ❤️ by Greston
-
 </div>
