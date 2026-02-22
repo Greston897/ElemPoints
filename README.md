@@ -208,81 +208,111 @@ currencies:
 
 ---
 
-📝 Commands & Permissions
-Global Commands
-Command	Description	Permission
-/elempoints	Shows plugin version, author, and loaded currencies	—
-/elempoints reload	Reloads all configuration files, currencies, messages, and databases	elempoints.reload
-Aliases: /elempoints, /ep, /epoints
 
-Player Commands
-These commands are created per currency. Command names and aliases are configured in each currency's .yml file.
+# 📝 Commands & Permission
 
-Command	Description	Permission
-/points	View how many points you have	elempoints.currency.points.use
-/points help	Displays a list of available commands for this currency	elempoints.currency.points.use
-/points <player>	View how many points another player has	elempoints.currency.points.use
-/points pay <player> <amount>	Transfers points to another player. Transfer fees applied if configured	elempoints.currency.points.use
-Default Aliases: /points, /pts, /donatepoints, /dp
+### Global Commands
 
-Admin Commands
-Command	Description	Permission
-/pointsadmin	Displays a list of admin commands for this currency	elempoints.currency.points.admin
-/pointsadmin give <player> <amount>	Gives the target player a specified amount of points	elempoints.currency.points.admin
-/pointsadmin take <player> <amount>	Takes a specified amount of points from a player	elempoints.currency.points.admin
-/pointsadmin set <player> <amount>	Sets a player's points to the specified amount	elempoints.currency.points.admin
-/pointsadmin reset <player>	Resets a player's points back to configured default balance	elempoints.currency.points.admin
-/pointsadmin check <player>	View how many points a player has	elempoints.currency.points.admin
-/pointsadmin export <currency> <rate>	Exports and converts all balances to another currency at the specified rate	elempoints.currency.points.admin
-Default Aliases: /pointsadmin, /ptsa, /padmin
+| Command                                 | Description                                                          | Permission        |
+| --------------------------------------- | -------------------------------------------------------------------- | ----------------- |
+| /elempoints                             | Shows plugin version, author, and loaded currencies                  | —                 |
+| /elempoints reload                      | Reloads all configuration files, currencies, messages, and databases | elempoints.reload |
+| **Aliases:** /elempoints, /ep, /epoints |                                                                      |                   |
 
-Second Currency Example (Crystals)
-<details> <summary>Click to expand Crystals commands</summary>
-Player Commands
-Command	Description	Permission
-/crystals	View how many crystals you have	elempoints.currency.crystals.use
-/crystals <player>	View another player's crystals	elempoints.currency.crystals.use
-/crystals pay <player> <amount>	Transfer crystals (5% fee by default)	elempoints.currency.crystals.use
-Aliases: /crystals, /cr, /crystal
+### Player Commands (Per Currency)
 
-Admin Commands
-Command	Description	Permission
-/crystalsadmin give <player> <amount>	Give crystals	elempoints.currency.crystals.admin
-/crystalsadmin take <player> <amount>	Take crystals	elempoints.currency.crystals.admin
-/crystalsadmin set <player> <amount>	Set crystals	elempoints.currency.crystals.admin
-/crystalsadmin reset <player>	Reset to default	elempoints.currency.crystals.admin
-/crystalsadmin check <player>	Check balance	elempoints.currency.crystals.admin
-/crystalsadmin export <currency> <rate>	Export data	elempoints.currency.crystals.admin
-Aliases: /crystalsadmin, /cra
+> Configured in each currency's `.yml` file
+
+**Points Commands**
+
+| Command                                                | Description                                                             | Permission                     |
+| ------------------------------------------------------ | ----------------------------------------------------------------------- | ------------------------------ |
+| /points                                                | View how many points you have                                           | elempoints.currency.points.use |
+| /points help                                           | Displays a list of available commands for this currency                 | elempoints.currency.points.use |
+| /points <player>                                       | View how many points another player has                                 | elempoints.currency.points.use |
+| /points pay <player> <amount>                          | Transfers points to another player. Transfer fees applied if configured | elempoints.currency.points.use |
+| **Default Aliases:** /points, /pts, /donatepoints, /dp |                                                                         |                                |
+
+**Points Admin Commands**
+
+| Command                                           | Description                                                                 | Permission                       |
+| ------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------- |
+| /pointsadmin                                      | Displays a list of admin commands for this currency                         | elempoints.currency.points.admin |
+| /pointsadmin give <player> <amount>               | Gives the target player a specified amount of points                        | elempoints.currency.points.admin |
+| /pointsadmin take <player> <amount>               | Takes a specified amount of points from a player                            | elempoints.currency.points.admin |
+| /pointsadmin set <player> <amount>                | Sets a player's points to the specified amount                              | elempoints.currency.points.admin |
+| /pointsadmin reset <player>                       | Resets a player's points back to configured default balance                 | elempoints.currency.points.admin |
+| /pointsadmin check <player>                       | View how many points a player has                                           | elempoints.currency.points.admin |
+| /pointsadmin export <currency> <rate>             | Exports and converts all balances to another currency at the specified rate | elempoints.currency.points.admin |
+| **Default Aliases:** /pointsadmin, /ptsa, /padmin |                                                                             |                                  |
+
+<details>
+<summary>Crystals Commands</summary>
+
+**Player Commands**
+
+| Command                               | Description                           | Permission                       |
+| ------------------------------------- | ------------------------------------- | -------------------------------- |
+| /crystals                             | View how many crystals you have       | elempoints.currency.crystals.use |
+| /crystals <player>                    | View another player's crystals        | elempoints.currency.crystals.use |
+| /crystals pay <player> <amount>       | Transfer crystals (5% fee by default) | elempoints.currency.crystals.use |
+| **Aliases:** /crystals, /cr, /crystal |                                       |                                  |
+
+**Admin Commands**
+
+| Command                                 | Description      | Permission                         |
+| --------------------------------------- | ---------------- | ---------------------------------- |
+| /crystalsadmin give <player> <amount>   | Give crystals    | elempoints.currency.crystals.admin |
+| /crystalsadmin take <player> <amount>   | Take crystals    | elempoints.currency.crystals.admin |
+| /crystalsadmin set <player> <amount>    | Set crystals     | elempoints.currency.crystals.admin |
+| /crystalsadmin reset <player>           | Reset to default | elempoints.currency.crystals.admin |
+| /crystalsadmin check <player>           | Check balance    | elempoints.currency.crystals.admin |
+| /crystalsadmin export <currency> <rate> | Export data      | elempoints.currency.crystals.admin |
+| **Aliases:** /crystalsadmin, /cra       |                  |                                    |
 
 </details>
-All Permission Nodes
-Permission	Description	Default
-elempoints.admin	Full access to all ElemPoints commands across all currencies	OP
-elempoints.reload	Allows use of /elempoints reload	OP
-elempoints.currency.<id>.use	Player commands for the specified currency	true
-elempoints.currency.<id>.admin	Admin commands for the specified currency	OP
-LuckPerms Examples
-text
 
+### All Permission Nodes
+
+| Permission                     | Description                                                  | Default |
+| ------------------------------ | ------------------------------------------------------------ | ------- |
+| elempoints.admin               | Full access to all ElemPoints commands across all currencies | OP      |
+| elempoints.reload              | Allows use of /elempoints reload                             | OP      |
+| elempoints.currency.<id>.use   | Player commands for the specified currency                   | true    |
+| elempoints.currency.<id>.admin | Admin commands for the specified currency                    | OP      |
+
+### LuckPerms Examples
+
+```
 /lp user Steve permission set elempoints.currency.points.use true
 /lp user Steve permission set elempoints.currency.crystals.use true
 /lp group moderator permission set elempoints.currency.points.admin true
 /lp group admin permission set elempoints.admin true
-Data Export
+```
+
+### Data Export
+
 Convert all points to crystals at 10:1 rate:
 
-text
-
+```
 /pointsadmin export crystals 10.0
-Command	Meaning
-/pointsadmin export crystals 10.0	1 point → 10 crystals
-/pointsadmin export crystals 0.5	2 points → 1 crystal
-/crystalsadmin export points 1.0	1 crystal → 1 point (1:1)
-Existing target balances are added to, not replaced.
+```
 
-Transfer Fees
-With 5% fee on crystals: /crystals pay Steve 100
+| Command                           | Meaning                   |
+| --------------------------------- | ------------------------- |
+| /pointsadmin export crystals 10.0 | 1 point → 10 crystals     |
+| /pointsadmin export crystals 0.5  | 2 points → 1 crystal      |
+| /crystalsadmin export points 1.0  | 1 crystal → 1 point (1:1) |
+
+> Existing target balances are added to, not replaced.
+
+### Transfer Fees
+
+With 5% fee on crystals:
+
+```
+/crystals pay Steve 100
+```
 
 Steve receives: 100 crystals
 You pay: 105 crystals (100 + 5% fee)
